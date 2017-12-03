@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+    <div class="section">
+        <div class="row">
+            <div class="col s12">
+                <ul class="collapsible" data-collapsible="expandable">
+                    <li>
+                        <div class="collapsible-header active"><i class="material-icons">format_list_bulleted</i>Daftar Pemasok</div>
+                        <div class="collapsible-body" id="idListSupplier"></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header active"><i class="material-icons">add_to_photos</i>Tambah Pemasok</div>
+                        <div class="collapsible-body" id="idCreateSupplierForm"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<div id="idModalUpdateSupplier" class="modal">
+    <div class="modal-header blue" style="padding:24px;color:white;">
+        <h4>Ubah Pemasok</h4>
+    </div>
+    <div class="modal-content" id="idBodyModalUpdateSupplier">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-light btn blue col s12" id="idBtnUpdateSupplier">
+            Save
+        </button>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.modal').modal();
+        GetListSupplier();
+        CreateNewSupplierForm();
+        $('.collapsible').collapsible();
+    });
+    function GetListSupplier() {
+        $.ajax({
+            url: '/Supplier/GetAllListSupplier',
+            type: 'GET',
+            success: function (model) {
+                $('#idListSupplier').html(model);
+            }
+        })
+    };
+    function CreateNewSupplierForm() {
+        $.ajax({
+            url: '/Supplier/CreateNewSupplierForm',
+            type: 'GET',
+            success: function (model) {
+                $('#idCreateSupplierForm').html(model);
+            }
+        })
+    };
+    $('#idBtnUpdateSupplier').click(function () {
+        var vFormSupplier = $('#idFormUpdateSupplier').serialize();
+        debugger;
+        $.ajax({
+            url: '/Supplier/Update',
+            type: 'POST',
+            data: vFormSupplier,
+            success: function (model) {
+                if (model.pesan = "sukses") {
+                    alert("data berhasil diubah");
+                    $("#idModalUpdateSupplier").modal('close');
+                    window.location.href = "/Supplier/Index";        //reload halaman index officer
+                }
+                else {
+                    alert("data gagal disimpan");
+                }
+            }
+        })
+    });
+</script>
+

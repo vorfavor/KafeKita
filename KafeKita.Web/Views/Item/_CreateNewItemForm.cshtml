@@ -1,0 +1,51 @@
+﻿@model KafeKita.ViewModel.MstItemViewModel
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "idFormItem" }))
+{
+    <div class="row">
+        <div class="input-field col s12">
+            @Html.EditorFor(model => model.ItemCode, new { @class = "Validate" })
+            <label for="ItemCode">Kode</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            @Html.EditorFor(model => model.Name, new { @class = "Validate" })
+            <label for="Name">Nama Barang</label>
+        </div>
+    </div>
+     
+    <div class="row">
+        <button class="waves-effect waves-light btn blue col s12" id="idBtnSaveDataItem">
+            Tambah Barang
+        </button>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+
+// TOMBOL TAMBAH BARANG
+    $('#idBtnSaveDataItem').click(function () {
+        var vFormItem = $('#idFormItem').serialize();
+        debugger;
+        $.ajax({
+            url: '/Item/CreateNewItem',
+            type: 'POST',
+            data: vFormItem,
+            success: function (model) {
+                debugger;
+                if (model.pesan = "sukses") {
+                    alert("data berhasil disimpan");
+                    window.location.href = "/Item/Index";
+                }
+                else {
+                    alert("data gagal disimpan");
+                }
+            }
+        })
+    });
+
+</script>

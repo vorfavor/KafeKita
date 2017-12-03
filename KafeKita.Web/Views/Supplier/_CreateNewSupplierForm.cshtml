@@ -1,0 +1,74 @@
+﻿@model KafeKita.ViewModel.MstSupplierViewModel
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "idFormSupplier" }))
+{
+    <div class="row">
+        <div class="input-field col s6">
+            @Html.EditorFor(model => model.SupplierCode, new { @class = "Validate" })
+            <label for="SupplierCode">Kode Pemasok</label>
+        </div>
+        <div class="input-field col s6">
+            @Html.EditorFor(model => model.ItemId, new { @class = "Validate" })
+            <label for="ItemId">Kode Item</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s6">
+            @Html.EditorFor(model => model.Name, new { @class = "Validate" })
+            <label for="Name">Nama Pemasok</label>
+        </div>
+        <div class="input-field col s6">
+            @Html.EditorFor(model => model.Email, new { @class = "Validate" })
+            <label for="Email">Email</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            @Html.EditorFor(model => model.Address, new { @class = "Validate" })
+            <label for="Address">Alamat</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s6">
+            @Html.EditorFor(model => model.Phone, new { @class = "Validate" })
+            <label for="Phone">Telepon</label>
+        </div>
+        <div class="input-field col s6">
+            @Html.EditorFor(model => model.Price, new { @class = "Validate" })
+            <label for="Price">Harga Beli</label>
+        </div>
+    </div>
+    <div class="row">
+        <button class="waves-effect waves-light btn blue col s12" id="idBtnSaveDataSupplier">
+            Tambah Pemasok
+        </button>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+
+// TOMBOL TAMBAH BARANG
+    $('#idBtnSaveDataSupplier').click(function () {
+        debugger;
+        var vFormsupplier = $('#idFormSupplier').serialize();
+        debugger;
+        $.ajax({
+            url: '/Supplier/CreateNewSupplier',
+            type: 'POST',
+            data: vFormsupplier,
+            success: function (model) {
+                if (model.pesan = "sukses") {
+                    alert("data berhasil disimpan");
+                    window.location.href = "/Supplier/Index";
+                }
+                else {
+                    alert("data gagal disimpan");
+                }
+            }
+        })
+    });
+
+</script>

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<KafeKita.ViewModel.MstSupplierViewModel>
+
+<table class="table" id="supplier">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actived)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupplierCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Actived)
+                    @if (item.Actived.ToString() == "True")
+                    {
+                        <i class="material-icons">check_circle</i>
+                    }
+                    else
+                    {
+                        <i class="material-icons">block</i>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <button class="waves-effect waves-light  btn-floating blue btnEditSupplier" data-Suppliercode="@item.SupplierCode">
+                        <i class="material-icons">create</i>
+                    </button>
+                    <button class="waves-effect waves-light  btn-floating red darken-3 btnDeleteSupplier" data-Suppliercode="@item.SupplierCode">
+                        <i class="material-icons">clear</i>
+                    </button>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $('#supplier').dataTable();
+    });
+    $(".btnDeleteSupplier").click(function () {
+        var vDeleteSupplier = $(this).attr("data-SupplierCode");
+        if (confirm("Apakah anda yakin ?")) {
+            $.ajax({
+                url: '/Supplier/Delete',
+                type: 'POST',
+                data: { cd: vDeleteSupplier },
+                success: function (model) {
+                    if (model.pesan = "sukses") {
+                        alert("data berhasil dihapus");
+                        window.location.href = "/Supplier/Index";        //reload halaman index officer
+                    }
+                    else {
+                        alert("data gagal dihapus");
+                    }
+                }
+            })
+        }
+    });
+    $(".btnEditSupplier").click(function () {
+        debugger;
+        var vEditSupplier = $(this).attr("data-SupplierCode");
+        debugger;
+        $.ajax({
+            url: '/Supplier/UpdateSupplierForm',
+            type: 'GET',
+            data: { cd: vEditSupplier },
+            success: function (model) {
+                $('#idBodyModalUpdateSupplier').html(model);
+                $('#idModalUpdateSupplier').modal('open');
+            }
+        })
+    });
+</script>

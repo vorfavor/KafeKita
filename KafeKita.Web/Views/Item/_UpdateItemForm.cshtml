@@ -1,0 +1,44 @@
+﻿@model KafeKita.ViewModel.MstItemViewModel
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "idFormUpdateItem" }))
+{
+    <div class="row">
+        <div class="input-field col s12">
+            @Html.HiddenFor(model => model.ItemCode, new { @class = "Validate" })
+            @Html.TextBoxFor(model => model.ItemCode, new { @class = "Validate", disabled = "disabled" })
+            <label for="ItemCode" class="active">Kode</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            @Html.EditorFor(model => model.Name, new { @class = "Validate" })
+            <label for="Name" class="active">Nama Barang</label>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            @Html.HiddenFor(model => model.Price, new { @class = "Validate" })
+            @Html.TextBoxFor(model => model.Price, new { @class = "Validate", disabled = "disabled" })
+            <label for="BuyingPrice" class="active">Harga Beli</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <input type="checkbox" id="Actived" name="Actived">
+            <label for="Actived">Status</label>
+        </div>
+    </div>
+}
+<script>
+    //$(document).ready(function () {
+    //    $('select').material_select();
+    //});
+    $("#Actived").on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).attr('value', 'true');
+        } else {
+            $(this).attr('value', 'false');
+        }
+    });
+</script>

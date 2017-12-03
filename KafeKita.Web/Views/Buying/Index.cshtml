@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="section">
+    <div class="row">
+        <div class="col s12">
+            <ul class="collapsible" data-collapsible="expandable">
+                <li>
+                    <div class="collapsible-header active"><i class="material-icons">format_list_bulleted</i>Buat Invoice</div>
+                    <div class="collapsible-body">
+                        <div class="row">
+                            <div class="col s12" id="idChooseItem">
+
+                            </div>
+                        </div>
+                        <br />
+                            <div class="divider"></div>
+                        <br />
+                        <div class="row">
+                            <div class="col s12" >
+                                <table class="table bordered striped" id="ItemOrderList">
+                                    <thead>
+                                        <tr>
+                                            <th>Kode Barang</th>
+                                            <th>Nama Barang</th>
+                                            <th>Supplier</th>
+                                            <th>Kuantitas</th>
+                                            <th>Harga Satuan</th>
+                                            <th>Jumlah Harga</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="idBodyItemSupplier" ></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col s12">
+                                <button class="waves-effect waves-light btn blue right" id="idBtnSaveInvoice">
+                                    Buat Invoice
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header active"><i class="material-icons">add_to_photos</i>Status Invoice</div>
+                    <div class="collapsible-body" id="idListInvoice"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        
+        GetListBuying();
+        GetListItemBuying();
+    });
+    function GetListBuying() {
+        $.ajax({
+            url: '/Buying/GetAllListBuying',
+            type: 'GET',
+            success: function (model) {
+                $('#idListInvoice').html(model);
+            }
+        })
+    };
+    function GetListItemBuying() {
+        $.ajax({
+            url: '/Buying/GetListItem',
+            type: 'GET',
+            success: function (model) {
+                $('#idChooseItem').html(model);
+            }
+        })
+    };
+    $('#idBtnSaveInvoice').click(function () {
+        debugger;
+        var vBuyingLength = $('#buying tbody tr').length;
+        var vString = "";
+        if (vBuyingLength < 10) {
+            vString = "BC00"
+        } else if(vBuyingLength < 100 && vBuyingLength > 10) {
+            vString = "BC0"
+        } else {
+            vString = "BC"
+        }
+
+        var vInvoiceCode = vString + (vBuyingLength + 1);
+        var vBuyingDetails = [];
+        var vCount = 0;
+        var vTotalPrice = 0;
+        var vApproved = false;
+        //var today = new Date();
+        debugger;
+        $('#idBodyItemSupplier').find('tr').each(function () {
+            vCount = vCount + 1;
+            var vSubTotal = parseFloat($(this).find("input[name=SubTotal]").val());
+            vTotalPrice = (vTotalPrice + vSubTotal);
+            var vItemCode = $(this).find("input[name=ItemCode]").val();
+            var vQty = $(this).find("input[name=Qty]").val();
+            var vPrice = $(this).find("input[name=BuyingPrice]").val();
+            var vSupCode = $(this).find("input[name=SupplierCode]").val();
+            var vDetail = { InvoiceCode: vInvoiceCode,ItemCode: vItemCode,Qty: vQty,BuyingPrice: vPrice, SupplierCode: vSupCode};
+            vBuyingDetails.push(vDetail);
+            debugger;
+        })
+        debugger;
+        var vModel = { InvoiceCode: vInvoiceCode, TotalItem: vCount, TotalPrice: vTotalPrice, Approved: vApproved,BuyingDetail: vBuyingDetails };
+        debugger;
+        $.ajax({
+            url: '/Buying/CreateNewInvoice',
+            type: 'POST',
+            data: {model : vModel},
+            success: function (result) {
+                debugger;
+                if (result.pesan = "sukses") {
+                    alert("data berhasil disimpan");
+                    window.location.href = "/Buying/Index";
+                }
+                else {
+                    alert("data gagal disimpan");
+                }
+            }
+        })
+    });
+</script>
+

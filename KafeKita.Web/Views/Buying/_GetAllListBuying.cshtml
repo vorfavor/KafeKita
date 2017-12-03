@@ -1,0 +1,95 @@
+﻿@model IEnumerable<KafeKita.ViewModel.TrsBuyingViewModel>
+
+<table class="table"  id="buying">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InvoiceCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalItem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Approved)
+            </th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvoiceCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalItem)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Approved)
+                    @if (item.Approved.ToString() == "True")
+                    {
+                        <i class="material-icons">check_circle</i>
+                    }
+                    else
+                    {
+                        <i class="material-icons">block</i>
+                    }
+                </td>
+                <td>
+                    <button class="waves-effect waves-light  btn-floating blue btnDetailBuying" data-invoicecode="@item.InvoiceCode">
+                        <i class="material-icons">search</i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="idModalBuyingDetail" class="modal">
+    <div class="modal-header blue" style="padding:24px;color:white;">
+        <h4>Invoice Detail</h4>
+    </div>
+    <div class="modal-content" id="idBodyModalBuyingDetail">
+    </div>
+    <div class="modal-footer">
+       
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.modal').modal();
+        $('#buying').dataTable();
+    });
+
+    $('.btnDetailBuying').click(function () {
+        var vInvoiceCode = $(this).attr("data-invoicecode");
+        debugger;
+        $.ajax({
+            url: '/Buying/GetBuyingDetailByInvoiceCode',
+            type: 'GET',
+            data: { cd: vInvoiceCode },
+            success: function (model) {
+                debugger;
+                $('#idBodyModalBuyingDetail').html(model);
+                $('#idModalBuyingDetail').modal('open');
+            },
+            error: function (jqXHR, exception) {
+                debugger;
+                console.log(jqXHR);
+                // Your error handling logic here..
+            }
+        })
+    });
+</script>

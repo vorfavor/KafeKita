@@ -1,0 +1,14 @@
+D:\batch129\Mini Project\KafeKita\KafeKita.DataAccess\bin\Debug\KafeKita.DataAccess.dll.config
+D:\batch129\Mini Project\KafeKita\KafeKita.DataAccess\bin\Debug\KafeKita.DataAccess.dll
+D:\batch129\Mini Project\KafeKita\KafeKita.DataAccess\bin\Debug\KafeKita.DataAccess.pdb
+D:\batch129\Mini Project\KafeKita\KafeKita.DataAccess\bin\Debug\EntityFramework.dll
+D:\batch129\Mini Project\KafeKita\KafeKita.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+D:\batch129\Mini Project\KafeKita\KafeKita.DataAccess\bin\Debug\KafeKita.Model.dll
+D:\batch129\Mini Project\KafeKita\KafeKita.DataAccess\bin\Debug\KafeKita.ViewModel.dll
+D:\batch129\Mini Project\KafeKita\KafeKita.DataAccess\bin\Debug\KafeKita.Model.pdb
+D:\batch129\Mini Project\KafeKita\KafeKita.DataAccess\bin\Debug\KafeKita.ViewModel.pdb
+D:\batch129\Mini Project\KafeKita\KafeKita.DataAccess\bin\Debug\EntityFramework.xml
+D:\batch129\Mini Project\KafeKita\KafeKita.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+D:\batch129\Mini Project\KafeKita\KafeKita.DataAccess\obj\Debug\KafeKita.DataAccess.csprojResolveAssemblyReference.cache
+D:\batch129\Mini Project\KafeKita\KafeKita.DataAccess\obj\Debug\KafeKita.DataAccess.dll
+D:\batch129\Mini Project\KafeKita\KafeKita.DataAccess\obj\Debug\KafeKita.DataAccess.pdb

@@ -1,0 +1,10 @@
+D:\batch129\Mini Project\KafeKita\KafeKita.Model\bin\Debug\KafeKita.Model.dll.config
+D:\batch129\Mini Project\KafeKita\KafeKita.Model\bin\Debug\KafeKita.Model.dll
+D:\batch129\Mini Project\KafeKita\KafeKita.Model\bin\Debug\KafeKita.Model.pdb
+D:\batch129\Mini Project\KafeKita\KafeKita.Model\bin\Debug\EntityFramework.dll
+D:\batch129\Mini Project\KafeKita\KafeKita.Model\bin\Debug\EntityFramework.SqlServer.dll
+D:\batch129\Mini Project\KafeKita\KafeKita.Model\bin\Debug\EntityFramework.xml
+D:\batch129\Mini Project\KafeKita\KafeKita.Model\bin\Debug\EntityFramework.SqlServer.xml
+D:\batch129\Mini Project\KafeKita\KafeKita.Model\obj\Debug\KafeKita.Model.dll
+D:\batch129\Mini Project\KafeKita\KafeKita.Model\obj\Debug\KafeKita.Model.pdb
+D:\batch129\Mini Project\KafeKita\KafeKita.Model\obj\Debug\KafeKita.Model.csprojResolveAssemblyReference.cache

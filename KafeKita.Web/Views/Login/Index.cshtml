@@ -1,0 +1,54 @@
+﻿@model KafeKita.ViewModel.MstOfficerViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="input-field col s12 center">
+            <img src="" class="circle responsive-img valign profile-image-login">
+            <p class="center login-form-text">Kafe Kita</p>
+        </div>
+    </div>
+    <div class="row margin">
+        <div class="input-field col s12">
+            <i class="material-icons prefix pt-5">person_outline</i>
+            @Html.EditorFor(model => model.Username)
+            <label for="username" class="center-align">Username</label>
+        </div>
+    </div>
+    <div class="row margin">
+        <div class="input-field col s12">
+            <i class="material-icons prefix pt-5">lock_outline</i>
+            @Html.PasswordFor(model => model.Password)
+            <label for="password">Password</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <button id="idBtnLogin" type="button" class="btn waves-effect waves-light col s12">Login</button>
+        </div>
+    </div>
+}
+<script>
+    $("#idBtnLogin").click(function () {
+        
+        var vUsername = $("#Username").val();
+        var vPassword = $("#Password").val();
+       
+        $.ajax({
+            url: '/Login/Login',
+            type: 'POST',
+            data: {
+                Username: vUsername,
+                Password: vPassword
+            },
+            success: function (model) {
+                    window.location.href = "/Home/Index";
+            }
+        });
+    });
+</script>

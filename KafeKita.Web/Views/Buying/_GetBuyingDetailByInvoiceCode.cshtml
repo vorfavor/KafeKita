@@ -1,0 +1,42 @@
+﻿@model IEnumerable<KafeKita.ViewModel.TrsBuyingDetailViewModel>
+
+<table class="table">
+    <tr>
+        <th>
+            Kode Invoice
+        </th>
+        <th>
+           Kode Item
+        </th>
+        <th>
+            Kuantitas
+        </th>
+        <th>
+            Harga Satuan
+        </th>
+        <th>
+            Kode Pemasok
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.InvoiceCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BuyingPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SupplierCode)
+        </td>
+    </tr>
+}
+
+</table>

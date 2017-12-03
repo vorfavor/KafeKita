@@ -1,0 +1,134 @@
+﻿@model KafeKita.ViewModel.ItemSupplierViewModel
+
+
+<table class="table" id="itemBuying">
+    <thead>
+        <tr>
+            <th>
+                Kode Barang
+            </th>
+            <th>
+                Nama Barang
+            </th>
+            <th>
+                Pemasok
+            </th>
+            <th>
+                Kuantitas
+            </th>
+            <th>
+                Harga
+            </th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Item)
+        {
+            <tr data-itemcode="@item.ItemCode">
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+
+                    <select id="SupplierID" name="SupplierID" data-itemcode="@item.ItemCode">
+                        <option value="" disabled selected>Pilih Supplier</option>
+                           @foreach (var sup in Model.Supplier)
+                        {
+                            if (sup.ItemId == item.ItemCode)
+                            {
+                                <option value="@Html.DisplayFor(modelSup => sup.SupplierCode)" data-supname="@Html.DisplayFor(modelSup => sup.Name)">@Html.DisplayFor(modelSup => sup.Name)</option>
+                            }
+                        }
+                    </select>
+                </td>
+                <td>
+                    <input style=" width: 90px;" id="idQty" value=""/>
+                </td>
+                <td id="idPrice">
+                 
+                </td>
+                <td>
+                    <button class="waves-effect waves-light  btn-floating green btnAddOrder"  data-itemcode="@item.ItemCode" data-itemname="@item.Name">
+                        <i class="material-icons">add</i>
+                    </button>
+
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $('#itemBuying').dataTable();
+        $('select').material_select();
+        GetListSupplier();
+    });
+    $('#itemBuying').on('change', '#SupplierID', function () {
+        var sd = $(this).val();
+        var id = $(this).attr('data-itemcode');
+        $.ajax({
+            url: '/Buying/GetPrice',
+            type: 'GET',
+            data: { cd: sd },
+            dataType: 'JSON',
+            success: function (result) {
+                $('tr[data-itemcode="' + id + '"] td#idPrice').empty();
+                $('tr[data-itemcode="' + id + '"] td#idPrice').append(result.Price);
+            }
+        });
+    });
+   
+
+    //function GetListSupplier() {
+    //    $.ajax({
+    //        url: '/Supplier/GetAllListSupplier',
+    //        type: 'GET',
+    //        success: function (model) {
+    //            $('#idListSupplier').html(model);
+    //        }
+    //    })
+    //};
+    $(".btnAddOrder").click(function () {
+        var vItemCode = $(this).attr("data-itemcode");
+        var vItemName = $(this).attr("data-itemname");
+        var vSup = $(this).parent().parent().find('#SupplierID').val();
+        var vSupName = $(this).parent().parent().find('#SupplierID option[value="'+vSup+'"]').text();
+        var vPrice = $(this).parent().parent().find('#idPrice').text();
+        var vQty = $(this).parent().parent().find('#idQty').val();
+        var vSubTotal = vQty * vPrice;
+        debugger;
+      
+        var vExist = 0;
+        var vTagHtml =  '<tr>' +
+                        '<td><input name="ItemCode" class="itemBuying" value ="'+vItemCode+'" type="hidden"/>'+vItemCode+'</td>' +
+                        '<td>'+vItemName+'</td>' +
+                        '<td><input name="SupplierCode" value="'+vSup+'" type="hidden"/>'+vSupName+'</td>' +
+                        '<td><input name="Qty" value="'+vQty+'" type="hidden"/>'+vQty+'</td>' +
+                        '<td><input name="BuyingPrice" value="' + vPrice + '" type="hidden"/>' + vPrice + '</td>' +
+                        '<td><input name="SubTotal" value="' + vSubTotal + '" type="hidden"/>' + vSubTotal + '</td>' +
+                        '<td><button class="waves-effect waves-light  btn-floating red darken3 btnDeleteOrder">' +
+                          '<i class="material-icons">remove</i></button></td>' +
+                        '</tr>';
+
+
+        if ($('#idBodyItemSupplier').length == 0) {
+            $("#idBodyItemSupplier").append(vTagHtml);
+        }
+        else {
+            $('.itemBuying').each(function () {
+                if (vItemCode == $(this).val()) {
+                    vExist = 1;
+                }
+            })
+            if (vExist != 1) {
+                $("#idBodyItemSupplier").append(vTagHtml);
+            }
+        }
+    });
+    $('#idBodyItemSupplier').on('click', '.btnDeleteOrder', function () {
+        $(this).parent().parent().remove();
+    });
+</script>

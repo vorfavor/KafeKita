@@ -1,0 +1,5 @@
+D:\batch129\Mini Project\KafeKita\KafeKita.Tests\bin\Debug\KafeKita.Tests.dll
+D:\batch129\Mini Project\KafeKita\KafeKita.Tests\bin\Debug\KafeKita.Tests.pdb
+D:\batch129\Mini Project\KafeKita\KafeKita.Tests\obj\Debug\KafeKita.Tests.csprojResolveAssemblyReference.cache
+D:\batch129\Mini Project\KafeKita\KafeKita.Tests\obj\Debug\KafeKita.Tests.dll
+D:\batch129\Mini Project\KafeKita\KafeKita.Tests\obj\Debug\KafeKita.Tests.pdb

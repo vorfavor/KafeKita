@@ -1,0 +1,99 @@
+﻿<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed">
+        <nav class="navbar-color">
+            <div class="nav-wrapper">
+                <div class="header-search-wrapper hide-on-med-and-down sideNav-lock">
+                    <div id="tanggal">
+
+                    </div>
+                </div>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen">
+                            <i class="material-icons">settings_overscan</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light notification-button" data-activates="notifications-dropdown">
+                            <i class="material-icons">
+                                notifications_none
+                                <small class="notification-badge">5</small>
+                            </i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light profile-button" data-activates="profile-dropdown">
+                            <span class="avatar-status avatar-online">
+                                <img src="../../images/avatar/avatar-7.png" alt="avatar">
+                                <i></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- translation-button -->
+                <ul id="notifications-dropdown" class="dropdown-content">
+                    <li>
+                        <h6>
+                            NOTIFICATIONS
+                            <span class="new badge">5</span>
+                        </h6>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#!" class="grey-text text-darken-2">
+                            <span class="material-icons icon-bg-circle amber small">trending_up</span> Generate monthly report
+                        </a>
+                        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">1 week ago</time>
+                    </li>
+                </ul>
+                <!-- profile-dropdown -->
+                <ul id="profile-dropdown" class="dropdown-content">
+                    <li>
+                        <a href="#" class="grey-text text-darken-1">
+                            <i class="material-icons">face</i> @Session["Role"]
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="grey-text text-darken-1">
+                            <i class="material-icons">settings</i> Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="grey-text text-darken-1">
+                            <i class="material-icons">live_help</i> Help
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#" class="grey-text text-darken-1">
+                            <i class="material-icons">lock_outline</i> Lock
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Login/Logout" class="grey-text text-darken-1">
+                            <i class="material-icons">keyboard_tab</i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<script>
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+    var myDays = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum&#39;at', 'Sabtu'];
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth();
+    var thisDay = date.getDay(),
+    thisDay = myDays[thisDay];
+    var yy = date.getYear();
+    var year = (yy < 1000) ? yy + 1900 : yy;
+    document.getElementById("tanggal").innerHTML = '<ul><li style="margin-top:-15px;margin-right:2px;"><h3 style="color:black">' + thisDay + '</h3></li>' +
+                                                        '<li>'+
+                                                            '<h6 style="color:black">' + day + ' ' + months[month] + ' ' + year + '</h6>'+
+                                                        '</li>'+
+                                                   '</ul>';
+</script>

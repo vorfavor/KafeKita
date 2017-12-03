@@ -1,0 +1,98 @@
+﻿<aside id="left-sidebar-nav" class="nav-expanded nav-lock nav-collapsible">
+    <div class="brand-sidebar">
+        <h1 class="logo-wrapper">
+            <a href="index.html" class="brand-logo darken-1">
+                <img src="../../images/logo/materialize-logo.png" alt="materialize logo">
+                <span class="logo-text hide-on-med-and-down">Materialize</span>
+            </a>
+            <a href="#" class="navbar-toggler">
+                <i class="material-icons">radio_button_checked</i>
+            </a>
+        </h1>
+    </div>
+    <ul id="slide-out" class="side-nav fixed leftside-navigation">
+        <li class="no-padding">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li class="bold">
+                    <a class="collapsible-header waves-effect waves-cyan">
+                        <i class="material-icons">dashboard</i>
+                        <span class="nav-text">Beranda</span>
+                    </a>
+                </li>
+                @if (Session["Role"].ToString() == "Supervisor")
+                {
+                    <li class="bold">
+                        <a href="~/Item/Index" class="collapsible-header waves-effect waves-cyan">
+                            <i class="material-icons">storage</i>
+                            <span class="nav-text">Petugas</span>
+                        </a>
+                    </li>
+                    <li class="bold">
+                        <a href="~/Buying/Index" class="collapsible-header waves-effect waves-cyan">
+                            <i class="material-icons">shopping_cart</i>
+                            <span class="nav-text">Langganan</span>
+                        </a>
+                    </li>
+                    <li class="bold">
+                        <a href="~/Supplier/Index" class="collapsible-header waves-effect waves-cyan">
+                            <i class="material-icons">local_shipping</i>
+                            <span class="nav-text">Barang</span>
+                        </a>
+                    </li>
+                    <li class="bold">
+                        <a href="~/Supplier/Index" class="collapsible-header waves-effect waves-cyan">
+                            <i class="material-icons">local_shipping</i>
+                            <span class="nav-text">Supplier</span>
+                        </a>
+                    </li>
+                    <li class="bold">
+                        <a href="~/Supplier/Index" class="collapsible-header waves-effect waves-cyan">
+                            <i class="material-icons">local_shipping</i>
+                            <span class="nav-text">Invoice</span>
+                        </a>
+                    </li>       
+                }
+                else if (Session["Role"].ToString() == "Storing")
+                {
+                    <li class="bold">
+                        <a href="~/Item/Index" class="collapsible-header waves-effect waves-cyan">
+                            <i class="material-icons">storage</i>
+                            <span class="nav-text">Barang</span>
+                        </a>
+                    </li>
+                    <li class="bold">
+                        <a href="~/Buying/Index" class="collapsible-header waves-effect waves-cyan">
+                            <i class="material-icons">shopping_cart</i>
+                            <span class="nav-text">Pembelian</span>
+                        </a>
+                    </li>
+                    <li class="bold">
+                        <a href="~/Supplier/Index" class="collapsible-header waves-effect waves-cyan">
+                            <i class="material-icons">local_shipping</i>
+                            <span class="nav-text">Pemasok</span>
+                        </a>
+                    </li>
+                }
+                else if (Session["Role"].ToString() == "Cashier")
+                {
+                    <li class="bold">
+                        <a href="~/Item/Index" class="collapsible-header waves-effect waves-cyan">
+                            <i class="material-icons">storage</i>
+                            <span class="nav-text">Barang</span>
+                        </a>
+                    </li>
+                    <li class="bold">
+                        <a href="~/Selling/Index" class="collapsible-header waves-effect waves-cyan">
+                            <i class="material-icons">shopping_cart</i>
+                            <span class="nav-text">Penjualan</span>
+                        </a>
+                    </li>
+                }
+                
+            </ul>
+        </li>
+    </ul>
+    <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only gradient-45deg-light-blue-cyan gradient-shadow">
+        <i class="material-icons">menu</i>
+    </a>
+</aside>

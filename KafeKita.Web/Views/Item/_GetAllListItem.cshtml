@@ -1,0 +1,104 @@
+﻿@model IEnumerable<KafeKita.ViewModel.MstItemViewModel>
+
+<table class="table" id="item">
+    <thead>
+        <tr>
+            <th>
+                Kode
+            </th>
+            <th>
+                Nama
+            </th>
+            <th>
+                Kuantitas
+            </th>
+            <th>
+                Harga Beli
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Aksi
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qty) &nbsp;
+                    @Html.DisplayFor(modelItem => item.Pieces)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Actived)
+                    @if (item.Actived.ToString() == "True")
+                    {
+                        <i class="material-icons">check_circle</i>
+                    }
+                    else
+                    {
+                        <i class="material-icons">block</i>
+                    }
+                </td>
+
+                <td>
+                    <button class="waves-effect waves-light  btn-floating blue btnEditItem" data-Itemcode="@item.ItemCode">
+                        <i class="material-icons">create</i>
+                    </button>
+                    <button class="waves-effect waves-light  btn-floating red darken-3 btnDeleteItem" data-Itemcode="@item.ItemCode">
+                        <i class="material-icons">clear</i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('#item').dataTable();
+    });
+
+    $(".btnDeleteItem").click(function () {
+        var vDeleteItem = $(this).attr("data-ItemCode");
+        if (confirm("Apakah anda yakin ?")) {
+            $.ajax({
+                url: '/Item/Delete',
+                type: 'POST',
+                data: { cd: vDeleteItem },
+                success: function (model) {
+                    if (model.pesan = "sukses") {
+                        alert("data berhasil dihapus");
+                        window.location.href = "/Item/Index";        //reload halaman index officer
+                    }
+                    else {
+                        alert("data gagal dihapus");
+                    }
+                }
+            })
+        }
+    });
+    $(".btnEditItem").click(function () {
+        var vEditItem = $(this).attr("data-ItemCode");
+        $.ajax({
+            url: '/Item/UpdateItemForm',
+            type: 'GET',
+            data: { cd: vEditItem },
+            success: function (model) {
+                $('#idBodyModalUpdateItem').html(model);
+                $('#idModalUpdateItem').modal('open');
+            }
+        })
+    });
+</script>
